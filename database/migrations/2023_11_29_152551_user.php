@@ -13,16 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_type', function (Blueprint $table) {
+        Schema::create('user', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->string('address');
+            $table->string('contactNumber');
+            $table->unsignedBigInteger('userTypeId');
+            $table->foreign('userTypeId')->references('id')->on('user_type');
             $table->timestamps();
         });
-
-        DB::table('user_type')->insert([
-            ['name' => 'Admin'],
-            ['name' => 'Cashier']
-        ]);
     }
 
     /**
