@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class UnitController extends Controller
 {
     public function getUnits() {
-        $units = Unit::all();
+        $units = Unit::all(); // SELECT * FROM units;
 
         if ( $units->count() > 0 ) {
             return response()->json( [

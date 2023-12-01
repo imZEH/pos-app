@@ -8,8 +8,8 @@
         const formattedDate = new Date(dateString).toLocaleDateString('en-US', options);
         return formattedDate;
     }
+
     $(document).ready(function () {
-        
         get();
         // Click event for the Save button in the modal
         $('#btnUnitSave').on('click', function (e) {

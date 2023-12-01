@@ -17,6 +17,14 @@ Route::get('/', function () {
     return view('main');
 });
 
+Route::get('/cashier', function () {
+    return view('cashier');
+});
+
+Route::get('/login', function () {
+    return view('login');
+});
+
 Route::get('/users', function () {
     return view('users');
 });
