@@ -38,3 +38,6 @@ Route::get('/customers', function () {
     return view('customers');
 });
 
+Route::get('/orders', function () {
+    return view('orders');
+});
