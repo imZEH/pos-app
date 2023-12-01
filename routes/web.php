@@ -14,13 +14,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('main');
 });
 
-Route::get('/buttons', function () {
-    return view('buttons');
+Route::get('/users', function () {
+    return view('users');
 });
 
-Route::get('/cards', function () {
-    return view('cards');
+Route::get('/category', function () {
+    return view('category');
 });
+
+Route::get('/units', function () {
+    return view('units');
+});
+
+Route::get('/products', function () {
+    return view('products');
+});
+
+
+Route::get('/customers', function () {
+    return view('customers');
+});
+
