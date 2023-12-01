@@ -31,6 +31,29 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Units Section</h1>
                     </div>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <a href="#" class="float-right d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#unitModal"><i
+                                    class="fas fa-plus fa-sm text-white-50"></i> Add unit</a>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Slug</th>
+                                            <th>Date Created</th>
+                                            <th>Date Updated</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- DATA HERE -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -39,10 +62,16 @@
             @include('partial.footer')
         </div>
     </div>
-    
+
     @include('partial.scrolltotop')
-    @include('partial.modal')
+    @include('partial.units_modal')
+
+
+
+    <!-- JS IMPORTS -->
     @include('partial.jsimports')
+    @include('partial.js_units')
 
 </body>
+
 </html>
