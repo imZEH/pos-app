@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller {
     public function index() {
-        $users = User::all();
+        $users = User::join('user_type', 'user.userTypeId', '=', 'user_type.id')
+                    ->select('user.*', 'user_type.*')
+                    ->get();
 
         if ( $users->count() > 0 ) {
             return response()->json( [
@@ -30,7 +32,7 @@ class UserController extends Controller {
             'lastName' => 'required',
             'address' => 'required',
             'contactNumber' => 'required',
-            'userTypeId' => 'required',
+            'userTypeId' => 'required'
         ] );
 
         if ( $validator->fails() ) {

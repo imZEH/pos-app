@@ -19,12 +19,12 @@
     </a>
 </li>
 
-<li class="nav-item">
+<!-- <li class="nav-item">
     <a class="nav-link" href="{{ url('/orders') }}" >
         <i class="fas fa-fw fa-cog"></i>
         <span>orders</span>
     </a>
-</li>
+</li> -->
 
 <!-- Divider -->
 <hr class="sidebar-divider">
@@ -39,6 +39,13 @@
     <a class="nav-link" href="{{ url('/category') }}" >
         <i class="fas fa-fw fa-cog"></i>
         <span>Category</span>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{ url('/subcategory') }}" >
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Sub Category</span>
     </a>
 </li>
 
