@@ -43,10 +43,11 @@ Route::get('category', [CategoryController::class, 'getCategory']);
 Route::post('category', [CategoryController::class, 'save']);
 Route::put('category/{id}', [CategoryController::class, 'update']);
 
-Route::get('product', [ProductController::class, 'getProducts']);
+Route::get('product', [ProductController::class, 'getProduct']);
 Route::post('product', [ProductController::class, 'save']);
 Route::put('product/{id}', [ProductController::class, 'update']);
 
 Route::get('subcategory', [SubcategoryController::class, 'getsubcategory']);
 Route::post('subcategory', [SubcategoryController::class, 'save']);
 Route::put('subcategory/{id}', [SubcategoryController::class, 'update']);
+Route::get('subcategory/{id}', [SubcategoryController::class, 'getsubcategoryId']);

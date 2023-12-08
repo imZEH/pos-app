@@ -48,6 +48,9 @@ Route::get('/customers', function () {
 Route::get('/subcategory', function () {
     return view('subcategory');
 });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
 
 // Route::get('/orders', function () {
 //     return view('orders');

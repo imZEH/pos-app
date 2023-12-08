@@ -36,7 +36,7 @@
                             <a href="#" class="float-right d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#productModal"><i
                                     class="fas fa-plus fa-sm text-white-50"></i> Create Product</a>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="productTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Name</th>

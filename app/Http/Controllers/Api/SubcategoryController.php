@@ -91,4 +91,20 @@ class SubcategoryController extends Controller
             }
         }
     }
+    public function getsubcategoryId($id) {
+        $subcategories = subcategory::where('categoryId', $id)->get();
+
+        if ( $subcategories->count() > 0 ) {
+            return response()->json( [
+                'status'=> 200,
+                'data'=> $subcategories
+            ], 200 );
+        } else {
+            return response()->json( [
+                'status'=> 404,
+                'message'=> 'No data'
+            ], 404 );
+        }
+    }
 }
+

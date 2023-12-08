@@ -9,21 +9,25 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
-    public function getProducts() {
-        $units = Product::all(); // SELECT * FROM units;
-
-        if ( $units->count() > 0 ) {
-            return response()->json( [
-                'status'=> 200,
-                'data'=> $units
-            ], 200 );
-        } else {
-            return response()->json( [
-                'status'=> 404,
-                'message'=> 'No data'
-            ], 404 );
+        public function getProduct() {
+            $units = Product::join('unit', 'product.unitId', '=', 'unit.id')
+                        ->join('category', 'product.categoryId', '=', 'category.id')
+                        ->join('subcategory', 'product.subCategoryId', '=', 'subcategory.id')
+                        ->select('product.*', 'unit.name as unit', 'category.name as categoryname','subcategory.name as subcategoryname')
+                        ->get();
+    
+            if ( $units->count() > 0 ) {
+                return response()->json( [
+                    'status'=> 200,
+                    'data'=> $units
+                ], 200 );
+            } else {
+                return response()->json( [
+                    'status'=> 404,
+                    'message'=> 'No data'
+                ], 404 );
+            }
         }
-    }
 
     public function save( Request $request ) {
         $validator = Validator::make( $request->all(), [

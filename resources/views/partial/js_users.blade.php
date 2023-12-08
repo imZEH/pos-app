@@ -68,19 +68,19 @@
         var apiEndpoint = "/api/user";
 
         // Get values from input fields
-        var unitfirstName = $('#unitfirstName').val();
-        var unitlastName = $('#unitlastName').val();
-        var unitaddress = $('#unitaddress').val();
-        var unitcontactNumber = $('#unitcontactNumber').val();
-        var unitrole = $('#unitrole').val();
+        var firstName = $('#firstName').val();
+        var lastName = $('#lastName').val();
+        var address = $('#address').val();
+        var contactNumber = $('#contactNumber').val();
+        var role = $('#role').val();
 
         // JSON body data
         var requestBody = {
-            "firstName": unitfirstName,
-            "lastName": unitlastName,
-            "address": unitaddress,
-            "contactNumber": unitcontactNumber,
-            "userTypeId": unitrole,
+            "firstName": firstName,
+            "lastName": lastName,
+            "address": address,
+            "contactNumber": contactNumber,
+            "userTypeId": role,
         };
 console.log(requestBody);
         // Make POST request
@@ -91,11 +91,11 @@ console.log(requestBody);
             data: JSON.stringify(requestBody),
             success: function (response) {
                 console.log('POST request successful:', response);
-                $('#unitfirstName').val("");
-                $('#unitlastName').val("");
-                $('#unitaddress').val("");
-                $('#unitcontactNumber').val("");
-                $('#unitrole').val("");
+                $('#firstName').val("");
+                $('#lastName').val("");
+                $('#address').val("");
+                $('#contactNumber').val("");
+                $('#role').val("");
                 // Close the modal after a successful request
                 closeModal();
             },
@@ -112,7 +112,7 @@ console.log(requestBody);
             dataType: 'json',
             success: function (response) {
                 // Clear existing table rows
-                $('#unitrole').empty();
+                $('#role').empty();
 
                 // Check if the response status is 200 and data is available
                 if (response.status === 200 && response.data.length > 0) {
@@ -120,7 +120,7 @@ console.log(requestBody);
                     $.each(response.data, function (index, item) {
                         var newRow = '<option value="'+item["id"]+'">'+item["name"]+'</option>';
 
-                        $('#unitrole').append(newRow);
+                        $('#role').append(newRow);
                     });
                 } else {
                     console.log('No data available.');

@@ -10,23 +10,23 @@
             </div>
             <form class="user">
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="unitfirstName"
+                        <input type="text" class="form-control form-control-user" id="firstName"
                             aria-describedby="firstNamehelp" placeholder="Enter First Name ...">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="unitlastName"
+                        <input type="text" class="form-control form-control-user" id="lastName"
                             aria-describedby="lastNamehelp" placeholder="Enter Last Name ...">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="unitaddress"
+                        <input type="text" class="form-control form-control-user" id="address"
                             aria-describedby="addresshelp" placeholder="Enter Address ...">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="unitcontactNumber"
+                        <input type="text" class="form-control form-control-user" id="contactNumber"
                             aria-describedby="contactNumberhelp" placeholder="Enter Contact Number ...">
                     </div>
                     <div class="form-group">
-                        <select type="text" class="form-control" id="unitrole"
+                        <select type="text" class="form-control" id="role"
                             aria-describedby="rolehelp" placeholder="Select Role ...">
                             <label for="">
                                 <!-- <option value="admin">Admin</option>
@@ -35,7 +35,7 @@
                         </select>
                         <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a id="btnProductSave" class="btn btn-primary" href="#">Save</a>
+                <a id="btnUserSave" class="btn btn-primary" href="#">Save</a>
             </div>
                     </div>
                 </form>

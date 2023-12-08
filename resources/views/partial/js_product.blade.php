@@ -12,6 +12,17 @@
     $(document).ready(function () {
         get();
         getUnit();
+        getCategory();
+        // getsubcategory();
+        // Trigger on change
+        $('#categoryId').change(function () {
+            var categoryId = $(this).val();
+            if (categoryId) {
+                getsubcategoryId(categoryId);
+            } else {
+                $('#subCategoryId').html('<option value="">Please select a category</option>');
+            }
+        });
         // Click event for the Save button in the modal
         $('#btnProductSave').on('click', function (e) {
             e.preventDefault();
@@ -32,7 +43,7 @@
             dataType: 'json',
             success: function (response) {
                 // Clear existing table rows
-                $('#dataTable tbody').empty();
+                $('#productTable tbody').empty();
 
                 // Check if the response status is 200 and data is available
                 if (response.status === 200 && response.data.length > 0) {
@@ -42,13 +53,13 @@
                             '<td>' + item.name + '</td>' +
                             '<td>' + item.sellingPrice + '</td>' +
                             '<td>' + item.stock + '</td>' +
-                            '<td>' + item.unitId + '</td>' +
-                            '<td>' + item.categoryId + '</td>' +
-                            '<td>' + subCategoryId + '</td>' +
+                            '<td>' + item.unit + '</td>' +
+                            '<td>' + item.categoryname + '</td>' +
+                            '<td>' + item.subcategoryname + '</td>' +
                             '<td>Actions</td>' +
                             '</tr>';
 
-                        $('#dataTable tbody').append(newRow);
+                        $('#productTable tbody').append(newRow);
                     });
                 } else {
                     console.log('No data available.');
@@ -73,17 +84,17 @@
         var sellingPrice = $('#sellingPrice').val();
         var stock = $('#stock').val();
         var unitId = $('#unitId').val();
-        var category = $('#categoryId').val();
-        var subCategory = $('#subCategoryId').val();
+        var categoryId = $('#categoryId').val();
+        var subCategoryId = $('#subCategoryId').val();
 
         // JSON body data
         var requestBody = {
             "name": name,
             "sellingPrice": sellingPrice,
-            "stock": sellingPrice,
+            "stock": stock,
             "unitId": unitId,
-            "category": categoryId,
-            "subCategory": subCategoryId
+            "categoryId": categoryId,
+            "subCategoryId": subCategoryId
         };
 
         // Make POST request
@@ -134,6 +145,86 @@
                 console.log('Error fetching data:', error);
             }
         });
+    }
+
+    function getCategory() {
+        $.ajax({
+            url: '/api/category',
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                // Clear existing table rows
+                $('#categoryId').empty();
+
+                // Check if the response status is 200 and data is available
+                if (response.status === 200 && response.data.length > 0) {
+                    // Iterate through the received data and append rows to the table
+                    $.each(response.data, function (index, item) {
+                        var newRow = '<option value="'+item["id"]+'">'+item["name"]+'</option>';
+
+                        $('#categoryId').append(newRow);
+
+                        var initialCategoryId = $('#categoryId').val();
+                        if (initialCategoryId) {
+                            getsubcategoryId(initialCategoryId);
+                        }
+                    });
+                } else {
+                    console.log('No data available.');
+                }
+            },
+            error: function (error) {
+                console.log('Error fetching data:', error);
+            }
+        });
+    }
+
+    function getsubcategory() {
+        $.ajax({
+            url: '/api/subcategory',
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                // Clear existing table rows
+                $('#subCategoryId').empty();
+
+                // Check if the response status is 200 and data is available
+                if (response.status === 200 && response.data.length > 0) {
+                    // Iterate through the received data and append rows to the table
+                    $.each(response.data, function (index, item) {
+                        var newRow = '<option value="'+item["id"]+'">'+item["name"]+'</option>';
+
+                        $('#subCategoryId').append(newRow);
+                    });
+                } else {
+                    console.log('No data available.');
+                }
+            },
+            error: function (error) {
+                console.log('Error fetching data:', error);
+            }
+        });
+    }
+    function getsubcategoryId(categoryId){
+        $.ajax({
+                url: '/api/subcategory/' + categoryId,
+                type: 'GET',
+                success: function (response) {
+                    if (response.status === 200) {
+                        var subcategories = response.data;
+                        var options = '';
+                        $.each(subcategories, function (key, value) {
+                            options += '<option value="' + value.id + '">' + value.name + '</option>';
+                        });
+                        $('#subCategoryId').html(options);
+                    } else {
+                        $('#subCategoryId').html('<option value="">No subcategories found</option>');
+                    }
+                },
+                error: function () {
+                    $('#subCategoryId').html('<option value="">Error fetching subcategories</option>');
+                }
+            });
     }
 
 </script>
