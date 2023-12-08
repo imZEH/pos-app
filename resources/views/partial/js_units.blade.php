@@ -10,7 +10,10 @@
     }
 
     $(document).ready(function () {
-        get();
+
+        getUnits();
+
+        //get();
         // Click event for the Save button in the modal
         $('#btnUnitSave').on('click', function (e) {
             e.preventDefault();
@@ -24,36 +27,38 @@
         });
     });
 
-    function get() {
-        $.ajax({
-            url: '/api/unit',
-            method: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                // Clear existing table rows
-                $('#dataTable tbody').empty();
-
-                // Check if the response status is 200 and data is available
-                if (response.status === 200 && response.data.length > 0) {
-                    // Iterate through the received data and append rows to the table
-                    $.each(response.data, function (index, item) {
-                        var newRow = '<tr>' +
-                            '<td>' + item.name + '</td>' +
-                            '<td>' + item.slug + '</td>' +
-                            '<td>' + formatDate(item.created_at) + '</td>' +
-                            '<td>' + formatDate(item.updated_at) + '</td>' +
-                            '<td>Actions</td>' +
-                            '</tr>';
-
-                        $('#dataTable tbody').append(newRow);
-                    });
-                } else {
-                    console.log('No data available.');
-                }
+    function getUnits() {
+        $('#dataTable').DataTable({
+            ajax: {
+                url: '/api/unit',
+                dataSrc: 'data'  // Specify the data source key
             },
-            error: function (error) {
-                console.log('Error fetching data:', error);
-            }
+            columns: [
+                { data: 'name' },
+                { data: 'slug' },
+                { 
+                    data: 'created_at',
+                    render: function(data, type, row) {
+                        // Format date only for display, not for sorting
+                        if (type === 'display' || type === 'filter') {
+                            return formatDate(data); // Use your formatDate function
+                        }
+                        return data;
+                    }
+                },
+                { 
+                    data: 'updated_at',
+                    render: function(data, type, row) {
+                        // Format date only for display, not for sorting
+                        if (type === 'display' || type === 'filter') {
+                            return formatDate(data); // Use your formatDate function
+                        }
+                        return data;
+                    }
+                },
+                { data: null, defaultContent: 'Actions' }
+            ],
+            order: [[2, 'desc']]
         });
     }
 
