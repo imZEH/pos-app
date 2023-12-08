@@ -45,7 +45,13 @@ Route::get('/products', function () {
 Route::get('/customers', function () {
     return view('customers');
 });
-
-Route::get('/orders', function () {
-    return view('orders');
+Route::get('/subcategory', function () {
+    return view('subcategory');
 });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
+
+// Route::get('/orders', function () {
+//     return view('orders');
+// });

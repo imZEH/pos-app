@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>POS | Users</title>
+    <title>POS | Category</title>
 
     @include('partial.csimports')
 
@@ -29,24 +29,22 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">User Section</h1>
-        
-        
-    
+                        <h1 class="h3 mb-0 text-gray-800">Sub Category Section</h1>
                     </div>
-                    <div class="card shadow mb-4">
+
+                </div>
+                <div class="card shadow mb-4">
                         <div class="card-body">
-                            <a href="#" class="float-right d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#createmodal"><i
-                                    class="fas fa-plus fa-sm text-white-50"></i> Add User</a>
+                            <a href="#" class="float-right d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#subcategoryModal"><i
+                                    class="fas fa-plus fa-sm text-white-50"></i> Add Sub Category</a>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Address</th>
-                                            <th>Contact Number</th>
-                                            <th>Role</th>
+                                            <th>Sub Category</th>
+                                            <th>Category</th>
+                                            <th>Date Created</th>
+                                            <th>Date Updated</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -57,16 +55,15 @@
                             </div>
                         </div>
                     </div>
-                <!-- /.container-fluid -->
-            </div>
 
             @include('partial.footer')
         </div>
     </div>
     
     @include('partial.scrolltotop')
-    @include('partial.createmodal')
+    @include('partial.subcategory_modal')
     @include('partial.jsimports')
-    @include('partial.js_users')
+    @include('partial.js_subcategory')
+
 </body>
 </html>
