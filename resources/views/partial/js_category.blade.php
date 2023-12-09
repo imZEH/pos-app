@@ -10,7 +10,7 @@
     }
 
     $(document).ready(function () {
-        get();
+        getCategory();
         // Click event for the Save button in the modal
         $('#btnCategorySave').on('click', function (e) {
             e.preventDefault();
@@ -23,6 +23,37 @@
             closeModal();
         });
     });
+    function getCategory() {
+        $('#dataTable').DataTable({
+            ajax: {
+                url: '/api/category',
+                dataSrc: 'data'  // Specify the data source key
+            },
+            columns: [
+                { data: 'name' },
+                { 
+                    data: 'created_at',
+                    render: function(data, type, row) {
+                        // Format date only for display, not for sorting
+                        if (type === 'display' || type === 'filter') {
+                            return formatDate(data); // Use your formatDate function
+                        }
+                        return data;
+                    }
+                },
+                { 
+                    data: 'updated_at',
+                    render: function(data, type, row) {
+                        // Format date only for display, not for sorting
+                        if (type === 'display' || type === 'filter') {
+                            return formatDate(data); // Use your formatDate function
+                        }
+                        return data;
+                    }
+                },
+            ],
+        });
+    }
 
     function get() {
         $.ajax({

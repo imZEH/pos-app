@@ -10,7 +10,7 @@
     }
 
     $(document).ready(function () {
-        get();
+        getProducts();
         getUnit();
         getCategory();
         // getsubcategory();
@@ -35,6 +35,23 @@
             closeModal();
         });
     });
+
+    function getProducts() {
+        $('#productTable').DataTable({
+            ajax: {
+                url: '/api/product',
+                dataSrc: 'data'  // Specify the data source key
+            },
+            columns: [
+                { data: 'name' },
+                { data: 'sellingPrice' },
+                { data: 'stock' },
+                { data: 'unit' },
+                { data: 'categoryname' },
+                { data: 'subcategoryname' },
+            ],
+        });
+    }
 
     function get() {
         $.ajax({

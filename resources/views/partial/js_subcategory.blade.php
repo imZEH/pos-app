@@ -10,7 +10,7 @@
     }
 
     $(document).ready(function () {
-        get();
+        getsubCategory();
         getcategory();
         // Click event for the Save button in the modal
         $('#btnSubcategorySave').on('click', function (e) {
@@ -24,6 +24,38 @@
             closeModal();
         });
     });
+    function getsubCategory() {
+        $('#dataTable').DataTable({
+            ajax: {
+                url: '/api/subcategory',
+                dataSrc: 'data'  // Specify the data source key
+            },
+            columns: [
+                { data: 'name' },
+                { data: 'categoryname' },
+                { 
+                    data: 'created_at',
+                    render: function(data, type, row) {
+                        // Format date only for display, not for sorting
+                        if (type === 'display' || type === 'filter') {
+                            return formatDate(data); // Use your formatDate function
+                        }
+                        return data;
+                    }
+                },
+                { 
+                    data: 'updated_at',
+                    render: function(data, type, row) {
+                        // Format date only for display, not for sorting
+                        if (type === 'display' || type === 'filter') {
+                            return formatDate(data); // Use your formatDate function
+                        }
+                        return data;
+                    }
+                },
+            ],
+        });
+    }
 
     function get() {
         $.ajax({

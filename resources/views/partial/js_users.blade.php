@@ -10,7 +10,7 @@
     }
 
     $(document).ready(function () {
-        get();
+        getUsers();
         getUserTypes();
         // Click event for the Save button in the modal
         $('#btnUserSave').on('click', function (e) {
@@ -24,6 +24,22 @@
             closeModal();
         });
     });
+    
+    function getUsers() {
+    $('#dataTable').DataTable({
+            ajax: {
+                url: '/api/user',
+                dataSrc: 'data'  // Specify the data source key
+            },
+            columns: [
+                { data: 'firstName' },
+                { data: 'lastName' },
+                { data: 'address' },
+                { data: 'contactNumber' },
+                { data: 'name' },
+            ],
+        });
+    }
 
     function get() {
         $.ajax({
