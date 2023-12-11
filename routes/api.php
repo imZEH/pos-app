@@ -47,6 +47,7 @@ Route::put('category/{id}', [CategoryController::class, 'update']);
 Route::get('product', [ProductController::class, 'getProduct']);
 Route::post('product', [ProductController::class, 'save']);
 Route::put('product/{id}', [ProductController::class, 'update']);
+Route::post('getproductbysearch', [ProductController::class, 'getProductBySearch']);
 
 Route::get('subcategory', [SubcategoryController::class, 'getsubcategory']);
 Route::post('subcategory', [SubcategoryController::class, 'save']);

@@ -21,9 +21,10 @@ class SubcategoryController extends Controller
             ], 200 );
         } else {
             return response()->json( [
-                'status'=> 404,
-                'message'=> 'No data'
-            ], 404 );
+                'status'=> 200,
+                'message'=> 'No data',
+                'data'=> []
+            ], 200 );
         }
     }
 
