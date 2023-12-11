@@ -116,7 +116,6 @@
     }
 
     function getProducts(subids) {
-        console.log(subids);
         var query = $('#searchProduct').val();
         $.ajax({
             url: '/api/getproductbysearch',
@@ -127,7 +126,6 @@
                 subcategoryIds: subids
             }),
             success: function (products) {
-                console.log(products);
                 $('#productList').empty();
                 for (let i = 0; i < products["data"].length; i++) {
                     let product = products["data"][i];
