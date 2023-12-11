@@ -16,11 +16,11 @@
                             aria-describedby="namehelp" placeholder="Enter Name ...">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="sellingPrice"
+                        <input type="number" class="form-control form-control-user" id="sellingPrice"
                             aria-describedby="sellingPricehelp" placeholder="Enter SellingPrice ...">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="stock"
+                        <input type="number" class="form-control form-control-user" id="stock"
                             aria-describedby="stockhelp" placeholder="Enter Stock ...">
                     </div>
                     <div class="form-group">                      

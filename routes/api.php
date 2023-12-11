@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\UserTypeController;
 use App\Http\Controllers\Api\SubcategoryController;
 
@@ -51,3 +52,7 @@ Route::get('subcategory', [SubcategoryController::class, 'getsubcategory']);
 Route::post('subcategory', [SubcategoryController::class, 'save']);
 Route::put('subcategory/{id}', [SubcategoryController::class, 'update']);
 Route::get('subcategory/{id}', [SubcategoryController::class, 'getsubcategoryId']);
+
+Route::get('customer', [CustomerController::class, 'getCustomer']);
+Route::post('customer', [CustomerController::class, 'save']);
+Route::put('customer/{id}', [CustomerController::class, 'update']);

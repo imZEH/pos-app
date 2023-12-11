@@ -22,7 +22,7 @@
                             aria-describedby="addresshelp" placeholder="Enter Address ...">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control form-control-user" id="contactNumber"
+                        <input type="number" class="form-control form-control-user" id="contactNumber"
                             aria-describedby="contactNumberhelp" placeholder="Enter Contact Number ...">
                     </div>
                     <div class="form-group">

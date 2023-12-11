@@ -108,11 +108,11 @@
                                 <div class="row">
                                     <div class="col dropdown">
                                         <button class="btn btn-light dropdown-toggle" type="button"
-                                            id="mobilePhonesDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                            id="mobilePhone" data-toggle="dropdown" aria-haspopup="true"
                                             aria-expanded="false">
                                             Mobile Phones
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="mobilePhonesDropdown">
+                                        <div class="dropdown-menu" id="mobilePhoneSubcategory" aria-labelledby="mobilePhonesDropdown">
                                             <a class="dropdown-item" href="#">Android</a>
                                             <a class="dropdown-item" href="#">iOS</a>
                                             <a class="dropdown-item" href="#">Windows</a>
@@ -123,11 +123,11 @@
 
                                     <!-- Juice -->
                                     <div class="col dropdown">
-                                        <button class="btn btn-light dropdown-toggle" type="button" id="juiceDropdown"
+                                        <button class="btn btn-light dropdown-toggle" type="button" id="juice"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Juice
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="juiceDropdown">
+                                        <div class="dropdown-menu" id="juiceSubcategory" aria-labelledby="juiceDropdown">
                                             <a class="dropdown-item" href="#">Fruit Juice</a>
                                             <a class="dropdown-item" href="#">Vegetable Juice</a>
                                             <a class="dropdown-item" href="#">Smoothies</a>
@@ -138,11 +138,11 @@
                                     <!-- Add similar structures for RTW, Foods, and Laptop -->
 
                                     <div class="col dropdown">
-                                        <button class="btn btn-light dropdown-toggle" type="button" id="rtwDropdown"
+                                        <button class="btn btn-light dropdown-toggle" type="button" id="rtw"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             RTW
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="rtwDropdown">
+                                        <div class="dropdown-menu" id="rtwSubcategory" aria-labelledby="rtwDropdown">
                                             <a class="dropdown-item" href="#">Shirts</a>
                                             <a class="dropdown-item" href="#">Pants</a>
                                             <a class="dropdown-item" href="#">Dresses</a>
@@ -151,11 +151,11 @@
 
                                     <!-- Foods -->
                                     <div class="col dropdown">
-                                        <button class="btn btn-light dropdown-toggle" type="button" id="foodsDropdown"
+                                        <button class="btn btn-light dropdown-toggle" type="button" id="food"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Foods
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="foodsDropdown">
+                                        <div class="dropdown-menu" id="foodSubcategory" aria-labelledby="foodsDropdown">
                                             <a class="dropdown-item" href="#">Fruits</a>
                                             <a class="dropdown-item" href="#">Vegetables</a>
                                             <a class="dropdown-item" href="#">Meat</a>
@@ -164,11 +164,11 @@
 
                                     <!-- Laptop -->
                                     <div class="col dropdown">
-                                        <button class="btn btn-light dropdown-toggle" type="button" id="laptopDropdown"
+                                        <button class="btn btn-light dropdown-toggle" type="button" id="laptop"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             Laptop
                                         </button>
-                                        <div class="dropdown-menu" aria-labelledby="laptopDropdown">
+                                        <div class="dropdown-menu" id="laptopSubcategory" aria-labelledby="laptopDropdown">
                                             <a class="dropdown-item" href="#">Windows</a>
                                             <a class="dropdown-item" href="#">MacOS</a>
                                             <a class="dropdown-item" href="#">Chromebook</a>
