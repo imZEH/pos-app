@@ -6,7 +6,6 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
  {
@@ -31,8 +30,41 @@ class ProductController extends Controller
         }
     }
 
-    public function save( Request $request )
- {
+    public function getProductBySearch(Request $request)
+    {
+        
+        $requestData = $request->json()->all();
+        $query = $requestData['query'] ?? '';
+        $subcategoryIds = $requestData['subcategoryIds'] ?? [];
+        
+        $queryBuilder = Product::query();
+    
+        if ($query !== '') {
+            $queryBuilder->where('name', 'like', '%' . $query . '%');
+        }
+    
+        if (!empty($subcategoryIds)) {
+            $queryBuilder->whereIn('subCategoryId', $subcategoryIds);
+        }
+    
+        $products = $queryBuilder->get();
+    
+        if ($products->count() > 0) {
+            return response()->json([
+                'status' => 200,
+                'data' => $products
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'No data found',
+                'data' => []
+            ], 200);
+        }
+    }
+    
+
+    public function save( Request $request ) {
         $validator = Validator::make( $request->all(), [
             'name' => 'required',
             'sellingPrice' => 'required',
@@ -60,7 +92,7 @@ class ProductController extends Controller
                 'unitId' => $request->unitId,
                 'categoryId' => $request->categoryId,
                 'subCategoryId' => $request->subCategoryId,
-                'imgPath' => $imagePath, // Save the image path to the database
+'imgPath' => $imagePath, // Save the image path to the database
             ] );
 
             if ( $product ) {
