@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('unitId');
             $table->unsignedBigInteger('categoryId');
             $table->unsignedBigInteger('subCategoryId');
+            $table->string('imgPath');
             $table->foreign('unitId')->references('id')->on('unit');
             $table->foreign('categoryId')->references('id')->on('category');
             $table->foreign('subCategoryId')->references('id')->on('subcategory');

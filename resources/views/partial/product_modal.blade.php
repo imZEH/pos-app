@@ -8,23 +8,23 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
+            <form class="user" id="productForm" enctype="multipart/form-data">
             <div class="modal-body">
 
-                <form class="user">
                     <div class="form-group">
                         <input type="text" class="form-control form-control-user" id="name"
-                            aria-describedby="namehelp" placeholder="Enter Name ...">
+                           name="name" aria-describedby="namehelp" placeholder="Enter Name ...">
                     </div>
                     <div class="form-group">
                         <input type="number" class="form-control form-control-user" id="sellingPrice"
-                            aria-describedby="sellingPricehelp" placeholder="Enter SellingPrice ...">
+                        name="sellingPrice" aria-describedby="sellingPricehelp" placeholder="Enter SellingPrice ...">
                     </div>
                     <div class="form-group">
                         <input type="number" class="form-control form-control-user" id="stock"
-                            aria-describedby="stockhelp" placeholder="Enter Stock ...">
+                        name="stock" aria-describedby="stockhelp" placeholder="Enter Stock ...">
                     </div>
                     <div class="form-group">                      
-                            <select type="text" class="form-control" id="unitId"
+                            <select type="text" class="form-control" id="unitId" name="unitId"
                             aria-describedby="rolehelp" placeholder="Select Role ...">
                             <label for="">
                                 <!-- <option value="admin">Admin</option>
@@ -33,7 +33,7 @@
                         </select>
                     </div>
                     <div class="form-group">                      
-                            <select type="text" class="form-control" id="categoryId"
+                            <select type="text" class="form-control" id="categoryId" name="categoryId"
                             aria-describedby="rolehelp" placeholder="Select Role ...">
                             <label for="">
                                 <!-- <option value="admin">Admin</option>
@@ -42,7 +42,7 @@
                         </select>
                     </div>
                     <div class="form-group">                      
-                            <select type="text" class="form-control" id="subCategoryId"
+                            <select type="text" class="form-control" id="subCategoryId" name="subCategoryId"
                             aria-describedby="rolehelp" placeholder="Select Role ...">
                             <label for="">
                                 <!-- <option value="admin">Admin</option>
@@ -50,13 +50,17 @@
                             </label>
                         </select>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <input type="file" name="imgPath" class="form-control " id="imgPath"
+                            aria-describedby="namehelp">
+                    </div>
 
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a id="btnProductSave" class="btn btn-primary" href="#">Save</a>
+                <button type="submit" class="btn btn-primary" href="#">Save</button>
             </div>
+            </form>
         </div>
     </div>
 </div>

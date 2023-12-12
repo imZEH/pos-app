@@ -31,51 +31,48 @@ class ProductController extends Controller
         }
     }
 
-    public function save( Request $request )
- {
-        $validator = Validator::make( $request->all(), [
-            'name' => 'required',
-            'sellingPrice' => 'required',
-            'stock' => 'required',
-            'unitId' => 'required',
-            'categoryId' => 'required',
-            'subCategoryId' => 'required',
-            'imgPath' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Add validation for image file
-        ] );
+    public function save(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'name' => 'required',
+        'sellingPrice' => 'required',
+        'stock' => 'required',
+        'unitId' => 'required',
+        'categoryId' => 'required',
+        'subCategoryId' => 'required',
+        'imgPath' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Add image validation rules
+    ]);
 
-        if ( $validator->fails() ) {
-            return response()->json( [
-                'status' => 422,
-                'errors' => $validator->messages(),
-            ], 422 );
-        } else {
-            // Handle image upload
-            $imagePath = $request->file( 'imgPath' )->store( 'images' );
-            // 'images' is the storage folder
-
-            $product = Product::create( [
-                'name' => $request->name,
-                'sellingPrice' => $request->sellingPrice,
-                'stock' => $request->stock,
-                'unitId' => $request->unitId,
-                'categoryId' => $request->categoryId,
-                'subCategoryId' => $request->subCategoryId,
-                'imgPath' => $imagePath, // Save the image path to the database
-            ] );
-
-            if ( $product ) {
-                return response()->json( [
-                    'status' => 200,
-                    'message' => 'Product added successfully',
-                ], 200 );
-            } else {
-                return response()->json( [
-                    'status' => 500,
-                    'message' => 'Something went wrong',
-                ], 500 );
-            }
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => 422,
+            'errors' => $validator->messages(),
+        ], 422);
+    } else {
+       $image = "";
+        if ($request->hasFile('imgPath')) {
+            $imgPath = $request->file('imgPath');
+            $imageName = time() . '.' . $imgPath->getClientOriginalExtension();
+            $imgPath->move(public_path('images'), $imageName);
+            // Save $imageName to the database or use it as needed
+           $image = "public/images" . "" . $imageName;
         }
+        $user = Product::create([
+            'name' => $request->name,
+            'sellingPrice' => $request->sellingPrice,
+            'stock' => $request->stock,
+            'unitId' => $request->unitId,
+            'categoryId' => $request->categoryId,
+            'subCategoryId' => $request->subCategoryId,
+            'imgPath' => $image
+        ]);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Product added successfully',
+        ], 200);
     }
+}
+
 
     public function update( Request $request, int $id ) {
         $validator = Validator::make( $request->all(), [

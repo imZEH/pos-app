@@ -15,6 +15,38 @@
         getCategory();
         // getsubcategory();
         // Trigger on change
+         // Display selected file name
+         $('#imgPath').change(function () {
+            var fileName = $(this).val().split('\\').pop();
+            $('#imageLabel').text(fileName);
+        });
+
+        // Form submission
+        $('#productForm').submit(function (e) {
+            e.preventDefault();
+
+            var formData = new FormData($(this)[0]);
+
+            $.ajax({
+                url: '/api/product',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    get();
+            // Close the modal after the request is completed
+            closeModal();
+                    // Handle success response
+                },
+                error: function (error) {
+                    console.log(error);
+                    // Handle error response
+                }
+            });
+        });
+
         $('#categoryId').change(function () {
             var categoryId = $(this).val();
             if (categoryId) {
@@ -24,16 +56,16 @@
             }
         });
         // Click event for the Save button in the modal
-        $('#btnProductSave').on('click', function (e) {
-            e.preventDefault();
-            // Make the POST request here if needed
-            save();
+        // $('#btnProductSave').on('click', function (e) {
+        //     e.preventDefault();
+        //     // Make the POST request here if needed
+        //     save();
             
-            // Fetch data from the API
-            get();
-            // Close the modal after the request is completed
-            closeModal();
-        });
+        //     // Fetch data from the API
+        //     get();
+        //     // Close the modal after the request is completed
+        //     closeModal();
+        // });
     });
 
     function getProducts() {
@@ -49,6 +81,7 @@
                 { data: 'unit' },
                 { data: 'categoryname' },
                 { data: 'subcategoryname' },
+                { data: 'imgPath' },
             ],
         });
     }
@@ -73,6 +106,7 @@
                             '<td>' + item.unit + '</td>' +
                             '<td>' + item.categoryname + '</td>' +
                             '<td>' + item.subcategoryname + '</td>' +
+                            '<td>' + item.imgPath + '</td>' +
                             '<td>Actions</td>' +
                             '</tr>';
 
@@ -103,6 +137,7 @@
         var unitId = $('#unitId').val();
         var categoryId = $('#categoryId').val();
         var subCategoryId = $('#subCategoryId').val();
+        var imgPath = $('#imgPath').val();
 
         // JSON body data
         var requestBody = {
@@ -111,7 +146,8 @@
             "stock": stock,
             "unitId": unitId,
             "categoryId": categoryId,
-            "subCategoryId": subCategoryId
+            "subCategoryId": subCategoryId,
+            "imgPath": imgPath
         };
 
         // Make POST request
@@ -128,6 +164,7 @@
                 $('#unitId').val("");
                 $('#categoryId').val("");
                 $('#subCategoryId').val("");
+                $('#imgPath').val("");
                 // Close the modal after a successful request
                 closeModal();
             },

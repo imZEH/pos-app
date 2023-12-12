@@ -45,6 +45,7 @@
                                             <th>Unit</th>
                                             <th>Category</th>
                                             <th>Sub Category</th>
+                                            <th>Image</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>

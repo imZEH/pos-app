@@ -17,6 +17,8 @@ class Product extends Model
         'stock',
         'unitId',
         'categoryId',
-        'subCategoryId'
+        'subCategoryId',
+        'imgpath'
+
     ];
 }
