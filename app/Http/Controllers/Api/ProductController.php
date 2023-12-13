@@ -6,7 +6,6 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
  {
@@ -113,6 +112,38 @@ class ProductController extends Controller
                     'message' => 'User not found'
                 ], 500 );
             }
+        }
+    }
+    public function getProductBySearch(Request $request)
+    {
+        
+        $requestData = $request->json()->all();
+        $query = $requestData['query'] ?? '';
+        $subcategoryIds = $requestData['subcategoryIds'] ?? [];
+        
+        $queryBuilder = Product::query();
+    
+        if ($query !== '') {
+            $queryBuilder->where('name', 'like', '%' . $query . '%');
+        }
+    
+        if (!empty($subcategoryIds)) {
+            $queryBuilder->whereIn('subCategoryId', $subcategoryIds);
+        }
+    
+        $products = $queryBuilder->get();
+    
+        if ($products->count() > 0) {
+            return response()->json([
+                'status' => 200,
+                'data' => $products
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 200,
+                'message' => 'No data found',
+                'data' => []
+            ], 200);
         }
     }
 }
