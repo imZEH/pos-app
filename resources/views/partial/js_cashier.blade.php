@@ -13,7 +13,7 @@
         updateTotals();
     });
 
-    function restoreOrders(){
+    function restoreOrders() {
         Object.keys(selectedProducts).forEach(function (id) {
             var product = selectedProducts[id];
             addRowToProductTable(id, product.name, product.sellingPrice, product.quantity);
@@ -86,7 +86,8 @@
 
                 for (let i = 0; i < customers["data"].length; i++) {
                     const customer = customers["data"][i];
-                    const suggestionItem = $('<div class="autocomplete-item p-2">' + customer.firstName + ' ' + customer.lastName +
+                    const suggestionItem = $('<div class="autocomplete-item p-2">' + customer.firstName +
+                        ' ' + customer.lastName +
                         '</div>');
 
                     suggestionItem.on('click', function () {
@@ -312,15 +313,31 @@
         $('#totalValue').text('$' + subtotal.toFixed(2));
     }
 
-    function saveOrder(){
+    function saveOrder() {
         var amountTendered = parseFloat($('#amountTendered').val()) || 0;
+        var customerName = $('#customerName').val();
 
-        if(amountTendered >= subtotal){
+        const result = parseName(customerName);
+
+        if (subtotal <= 0) {
+            $.toast({
+                heading: 'Error',
+                text: "Empty order",
+                showHideTransition: 'slide',
+                position: 'bottom-right',
+                icon: 'error'
+            })
+            return;
+        }
+
+        if (amountTendered >= subtotal) {
             var customerId = $('#customerId').val();
             var orderData = {
                 "customerId": customerId,
+                "customerFirstName": result.firstName,
+                "customerLastName": result.lastName,
                 "transctionId": 1,
-                "products": selectedProducts
+                "products": selectedProducts,
             };
 
             var apiUrl = "/api/orders";
@@ -330,7 +347,7 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(orderData),
-                success: function(response) {
+                success: function (response) {
                     $.toast({
                         heading: 'Success',
                         text: 'Order created successfully',
@@ -341,17 +358,18 @@
 
                     clearOrders();
                 },
-                error: function(error) {
+                error: function (error) {
                     $.toast({
                         heading: 'Error',
-                        text: "Error creating order:", error,
+                        text: "Error creating order:",
+                        error,
                         showHideTransition: 'slide',
                         position: 'bottom-right',
                         icon: 'error'
                     })
                 }
             });
-        }else{
+        } else {
             $.toast({
                 heading: 'Error',
                 text: "The amount tendered is less than the total amount",
@@ -362,7 +380,23 @@
         }
     }
 
-    function clearOrders(){
+    function parseName(fullName) {
+        const words = fullName.split(' ');
+        const firstName = words[0];
+        let lastName = '';
+
+        if (words.length > 1) {
+            // Concatenate the second to last word as the last name
+            lastName = words.slice(1).join(' ');
+        }
+
+        return {
+            firstName: firstName,
+            lastName: lastName
+        };
+    }
+
+    function clearOrders() {
         $('#customerName').val("");
         $('#customerId').val("");
         $('#searchProduct').val("");
@@ -371,7 +405,7 @@
         $('#changeValue').text('$0.00');
         $('.dropdown-item').removeClass('active');
         subids = [];
-        selectedProducts =  {};
+        selectedProducts = {};
         localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
         subtotal = 0;
         updateTotals();

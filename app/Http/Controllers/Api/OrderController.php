@@ -15,12 +15,22 @@ class OrderController extends Controller {
         // Check if customerId is provided
         if ( empty( $data[ 'customerId' ] ) ) {
             // Create a new customer with default values
-            $customer = Customer::create( [
-                'firstName' => 'Unknown',
-                'lastName' => 'Unknown',
-                'contactNumber' => 0,
-                'address' => '',
-            ] );
+
+            if ( !empty( $data[ 'customerFirstName' ] ) ) {
+                $customer = Customer::create( [
+                    'firstName' => $data[ 'customerFirstName' ],
+                    'lastName' => $data[ 'customerLastName' ],
+                    'contactNumber' => 0,
+                    'address' => '',
+                ] );
+            } else {
+                $customer = Customer::create( [
+                    'firstName' => 'Unknown',
+                    'lastName' => 'Unknown',
+                    'contactNumber' => 0,
+                    'address' => '',
+                ] );
+            }
         } else {
             // Check if the provided customerId exists in the customers table
             $customer = Customer::find( $data[ 'customerId' ] );
