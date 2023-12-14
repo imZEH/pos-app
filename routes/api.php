@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
@@ -57,3 +58,6 @@ Route::get('subcategory/{id}', [SubcategoryController::class, 'getsubcategoryId'
 Route::get('customer', [CustomerController::class, 'getCustomer']);
 Route::post('customer', [CustomerController::class, 'save']);
 Route::put('customer/{id}', [CustomerController::class, 'update']);
+Route::post('getcustomerbysearch', [CustomerController::class, 'getCustomerBySearch']);
+
+Route::post('/orders', [OrderController::class, 'store']);

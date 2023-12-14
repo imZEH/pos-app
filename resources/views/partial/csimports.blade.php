@@ -7,5 +7,6 @@
 <!-- Custom styles for this template-->
 <link rel="stylesheet" href="{{ asset('css/sb-admin-2.min.css') }}">
 
-    <!-- Custom styles for this page -->
-    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<!-- Custom styles for this page -->
+<link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<link href="../js/jquery.toast.min.css" rel="stylesheet">

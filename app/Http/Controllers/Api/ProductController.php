@@ -30,48 +30,47 @@ class ProductController extends Controller
         }
     }
 
-    public function save(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'name' => 'required',
-        'sellingPrice' => 'required',
-        'stock' => 'required',
-        'unitId' => 'required',
-        'categoryId' => 'required',
-        'subCategoryId' => 'required',
-        'imgPath' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Add image validation rules
-    ]);
+    public function save( Request $request )
+ {
+        $validator = Validator::make( $request->all(), [
+            'name' => 'required',
+            'sellingPrice' => 'required',
+            'stock' => 'required',
+            'unitId' => 'required',
+            'categoryId' => 'required',
+            'subCategoryId' => 'required',
+            'imgPath' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Add image validation rules
+        ] );
 
-    if ($validator->fails()) {
-        return response()->json([
-            'status' => 422,
-            'errors' => $validator->messages(),
-        ], 422);
-    } else {
-       $image = "";
-        if ($request->hasFile('imgPath')) {
-            $imgPath = $request->file('imgPath');
-            $imageName = time() . '.' . $imgPath->getClientOriginalExtension();
-            $imgPath->move(public_path('images'), $imageName);
-            // Save $imageName to the database or use it as needed
-           $image = "public/images" . "" . $imageName;
+        if ( $validator->fails() ) {
+            return response()->json( [
+                'status' => 422,
+                'errors' => $validator->messages(),
+            ], 422 );
+        } else {
+            $image = '';
+            if ( $request->hasFile( 'imgPath' ) ) {
+                $imgPath = $request->file( 'imgPath' );
+                $imageName = time() . '.' . $imgPath->getClientOriginalExtension();
+                $imgPath->move( public_path( 'images' ), $imageName );
+                // Save $imageName to the database or use it as needed
+                $image = 'public/images' . '' . $imageName;
+            }
+            $user = Product::create( [
+                'name' => $request->name,
+                'sellingPrice' => $request->sellingPrice,
+                'stock' => $request->stock,
+                'unitId' => $request->unitId,
+                'categoryId' => $request->categoryId,
+                'subCategoryId' => $request->subCategoryId,
+                'imgPath' => $image
+            ] );
+            return response()->json( [
+                'status' => 200,
+                'message' => 'Product added successfully',
+            ], 200 );
         }
-        $user = Product::create([
-            'name' => $request->name,
-            'sellingPrice' => $request->sellingPrice,
-            'stock' => $request->stock,
-            'unitId' => $request->unitId,
-            'categoryId' => $request->categoryId,
-            'subCategoryId' => $request->subCategoryId,
-            'imgPath' => $image
-        ]);
-        return response()->json([
-            'status' => 200,
-            'message' => 'Product added successfully',
-        ], 200);
     }
-}
-
 
     public function update( Request $request, int $id ) {
         $validator = Validator::make( $request->all(), [
@@ -114,36 +113,37 @@ class ProductController extends Controller
             }
         }
     }
-    public function getProductBySearch(Request $request)
-    {
-        
+
+    public function getProductBySearch( Request $request )
+ {
+
         $requestData = $request->json()->all();
-        $query = $requestData['query'] ?? '';
-        $subcategoryIds = $requestData['subcategoryIds'] ?? [];
-        
+        $query = $requestData[ 'query' ] ?? '';
+        $subcategoryIds = $requestData[ 'subcategoryIds' ] ?? [];
+
         $queryBuilder = Product::query();
-    
-        if ($query !== '') {
-            $queryBuilder->where('name', 'like', '%' . $query . '%');
+
+        if ( $query !== '' ) {
+            $queryBuilder->where( 'name', 'like', '%' . $query . '%' );
         }
-    
-        if (!empty($subcategoryIds)) {
-            $queryBuilder->whereIn('subCategoryId', $subcategoryIds);
+
+        if ( !empty( $subcategoryIds ) ) {
+            $queryBuilder->whereIn( 'subCategoryId', $subcategoryIds );
         }
-    
+
         $products = $queryBuilder->get();
-    
-        if ($products->count() > 0) {
-            return response()->json([
+
+        if ( $products->count() > 0 ) {
+            return response()->json( [
                 'status' => 200,
                 'data' => $products
-            ], 200);
+            ], 200 );
         } else {
-            return response()->json([
+            return response()->json( [
                 'status' => 200,
                 'message' => 'No data found',
                 'data' => []
-            ], 200);
+            ], 200 );
         }
     }
 }

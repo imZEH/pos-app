@@ -26,6 +26,36 @@ class CustomerController extends Controller
         }
     }
 
+    public function getCustomerBySearch( Request $request )
+    {
+        $requestData = $request->json()->all();
+        $query = $requestData[ 'query' ] ?? '';
+
+        $queryBuilder = Customer::query();
+
+        if ( $query !== '' ) {
+            $queryBuilder->where(function($q) use ($query) {
+                $q->where('firstName', 'like', '%' . $query . '%')
+                  ->orWhere('lastName', 'like', '%' . $query . '%');
+            });
+        }
+
+        $customer = $queryBuilder->get();
+
+        if ( $customer->count() > 0 ) {
+            return response()->json( [
+                'status' => 200,
+                'data' => $customer
+            ], 200 );
+        } else {
+            return response()->json( [
+                'status' => 200,
+                'message' => 'No data found',
+                'data' => []
+            ], 200 );
+        }
+    }
+
     public function save( Request $request ) {
         $validator = Validator::make( $request->all(), [
             'firstName' => 'required',
