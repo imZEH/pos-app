@@ -222,9 +222,9 @@
 
                     let card = $('<div class="card product-item  mr-4 mb-4" style="width: 15rem;">');
 
-                    // card.append('<img src="' + product.image + '" class="card-img-top" alt="..." height="200">');
-                    card.append(
-                        '<img src="../img/iphone1.jpg" class="card-img-top" alt="..." height="200">');
+                     card.append('<img src="' + product.imgPath + '" class="card-img-top" alt="..." height="200">');
+                    // card.append(
+                    //     '<img src="../img/iphone1.jpg" class="card-img-top" alt="..." height="200">');
 
                     card.append('<div class="card-body">' +
                         '<span class="card-text"><h5>' + product.name + '</h5></span>' +
@@ -284,7 +284,24 @@
 
                 localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
             })),
-            $('<td>').text('$' + sellingPrice.toFixed(2))
+            $('<td>').text('$' + sellingPrice.toFixed(2)),
+            $('<td>').append($(
+                '<a class="text-danger text-center" href="#"><i class="fa fa-trash fa-sm" aria-hidden="true"></i></a>'
+                ).on('click', function () {
+                var rowToRemove = $(this).closest('tr');
+                var productId = id; // Replace with your actual product ID
+
+                // Remove the row from the table
+                rowToRemove.remove();
+
+                // Remove the item from the selectedProducts object
+                delete selectedProducts[productId];
+                    
+                console.log(selectedProducts);
+                // Update totals and save to localStorage if needed
+                updateTotals();
+                localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
+            }))
         );
 
         $('#productTable').append(row);
@@ -301,6 +318,7 @@
     }
 
     function updateTotals() {
+        subtotal = 0;
         for (var id in selectedProducts) {
             if (selectedProducts.hasOwnProperty(id)) {
                 var product = selectedProducts[id];
@@ -308,7 +326,6 @@
                 subtotal += itemSubtotal;
             }
         }
-
         $('#subtotalvalue').text('$' + subtotal.toFixed(2));
         $('#totalValue').text('$' + subtotal.toFixed(2));
     }
@@ -338,6 +355,7 @@
                 "customerLastName": result.lastName,
                 "transctionId": 1,
                 "products": selectedProducts,
+                "subtotal": subtotal,
             };
 
             var apiUrl = "/api/orders";
@@ -359,9 +377,10 @@
                     clearOrders();
                 },
                 error: function (error) {
+                    console.log(error['responseJSON']);
                     $.toast({
                         heading: 'Error',
-                        text: "Error creating order:",
+                        text: error['responseJSON']['message'],
                         error,
                         showHideTransition: 'slide',
                         position: 'bottom-right',

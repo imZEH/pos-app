@@ -18,7 +18,6 @@ class Product extends Model
         'unitId',
         'categoryId',
         'subCategoryId',
-        'imgpath'
-
+        'imgPath'
     ];
 }

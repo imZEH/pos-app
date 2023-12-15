@@ -49,13 +49,15 @@ class ProductController extends Controller
             ], 422 );
         } else {
             $image = '';
+
             if ( $request->hasFile( 'imgPath' ) ) {
                 $imgPath = $request->file( 'imgPath' );
                 $imageName = time() . '.' . $imgPath->getClientOriginalExtension();
                 $imgPath->move( public_path( 'images' ), $imageName );
                 // Save $imageName to the database or use it as needed
-                $image = 'public/images' . '' . $imageName;
+                $image = '../images/' . '' . $imageName;
             }
+
             $user = Product::create( [
                 'name' => $request->name,
                 'sellingPrice' => $request->sellingPrice,

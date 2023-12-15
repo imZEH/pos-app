@@ -15,5 +15,6 @@ class OrdersDetails extends Model
         'orderId',
         'productId',
         'price',
+        'qty'
     ];
 }

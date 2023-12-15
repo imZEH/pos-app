@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Orders;
+use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\OrdersDetails;
@@ -57,15 +58,42 @@ class OrderController extends Controller {
             'transctionId' => 1, // Assuming you have transctionId in the request
         ] );
 
+        foreach ( $data[ 'products' ] as $productId => $productData ) {
+            $product = Product::find( $productId );
+
+            // Check if the product exists
+            if ( !$product ) {
+                return response()->json( [ 'message' => 'Product not found' ], 404 );
+            }
+
+            // Step 2: Check if the product has enough stock
+            if ( $product->stock >= $productData[ 'quantity' ] ) {
+
+            } else {
+                return response()->json( [ 'message' => 'Insufficient stock for the product ' . $product->name ], 400 );
+            }
+        }
+
         // Save order details
         foreach ( $data[ 'products' ] as $productId => $productData ) {
-            OrdersDetails::create( [
-                'orderId' => $order->id,
-                'productId' => $productId,
-                'price' => $productData[ 'sellingPrice' ],
-            ] );
+            if ( $productData[ 'quantity' ] > 0 ) {
+                OrdersDetails::create( [
+                    'orderId' => $order->id,
+                    'productId' => $productId,
+                    'price' => $productData[ 'sellingPrice' ],
+                    'qty' => $productData[ 'quantity' ]
+                ] );
+
+                $this->updateStock($productId, $productData['quantity']);
+            }
         }
 
         return response()->json( [ 'message' => 'Order created successfully' ], 201 );
+    }
+
+    private function updateStock( $productId, $qyt ) {
+        $product = Product::find( $productId );
+        $product->stock = $product->stock - $qyt;
+        $product->save();
     }
 }

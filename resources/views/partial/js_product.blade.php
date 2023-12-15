@@ -15,8 +15,8 @@
         getCategory();
         // getsubcategory();
         // Trigger on change
-         // Display selected file name
-         $('#imgPath').change(function () {
+        // Display selected file name
+        $('#imgPath').change(function () {
             var fileName = $(this).val().split('\\').pop();
             $('#imageLabel').text(fileName);
         });
@@ -36,8 +36,8 @@
                 success: function (response) {
                     console.log(response);
                     get();
-            // Close the modal after the request is completed
-            closeModal();
+                    // Close the modal after the request is completed
+                    closeModal();
                     // Handle success response
                 },
                 error: function (error) {
@@ -60,7 +60,7 @@
         //     e.preventDefault();
         //     // Make the POST request here if needed
         //     save();
-            
+
         //     // Fetch data from the API
         //     get();
         //     // Close the modal after the request is completed
@@ -72,16 +72,29 @@
         $('#productTable').DataTable({
             ajax: {
                 url: '/api/product',
-                dataSrc: 'data'  // Specify the data source key
+                dataSrc: 'data' // Specify the data source key
             },
-            columns: [
-                { data: 'name' },
-                { data: 'sellingPrice' },
-                { data: 'stock' },
-                { data: 'unit' },
-                { data: 'categoryname' },
-                { data: 'subcategoryname' },
-                { data: 'imgPath' },
+            columns: [{
+                    data: 'name'
+                },
+                {
+                    data: 'sellingPrice'
+                },
+                {
+                    data: 'stock'
+                },
+                {
+                    data: 'unit'
+                },
+                {
+                    data: 'categoryname'
+                },
+                {
+                    data: 'subcategoryname'
+                },
+                {
+                    data: 'imgPath'
+                },
             ],
         });
     }
@@ -137,34 +150,29 @@
         var unitId = $('#unitId').val();
         var categoryId = $('#categoryId').val();
         var subCategoryId = $('#subCategoryId').val();
-        var imgPath = $('#imgPath').val();
+        var imgPath = $('#imgPath')[0].files[0];
 
-        // JSON body data
-        var requestBody = {
-            "name": name,
-            "sellingPrice": sellingPrice,
-            "stock": stock,
-            "unitId": unitId,
-            "categoryId": categoryId,
-            "subCategoryId": subCategoryId,
-            "imgPath": imgPath
-        };
+        // Use FormData for file uploads
+        var formData = new FormData();
+        formData.append('name', name);
+        formData.append('sellingPrice', sellingPrice);
+        formData.append('stock', stock);
+        formData.append('unitId', unitId);
+        formData.append('categoryId', categoryId);
+        formData.append('subCategoryId', subCategoryId);
+        formData.append('imgPath', imgPath);
 
-        // Make POST request
+        // Make POST request with FormData
         $.ajax({
             url: apiEndpoint,
             type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(requestBody),
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function (response) {
                 console.log('POST request successful:', response);
-                $('#name').val("");
-                $('#sellingPrice').val("");
-                $('#stock').val("");
-                $('#unitId').val("");
-                $('#categoryId').val("");
-                $('#subCategoryId').val("");
-                $('#imgPath').val("");
+                // Clear input fields
+                $('#name, #sellingPrice, #stock, #unitId, #categoryId, #subCategoryId, #imgPath').val("");
                 // Close the modal after a successful request
                 closeModal();
             },
@@ -173,6 +181,7 @@
             }
         });
     }
+
 
     function getUnit() {
         $.ajax({
@@ -187,7 +196,8 @@
                 if (response.status === 200 && response.data.length > 0) {
                     // Iterate through the received data and append rows to the table
                     $.each(response.data, function (index, item) {
-                        var newRow = '<option value="'+item["id"]+'">'+item["name"]+'</option>';
+                        var newRow = '<option value="' + item["id"] + '">' + item["name"] +
+                            '</option>';
 
                         $('#unitId').append(newRow);
                     });
@@ -214,7 +224,8 @@
                 if (response.status === 200 && response.data.length > 0) {
                     // Iterate through the received data and append rows to the table
                     $.each(response.data, function (index, item) {
-                        var newRow = '<option value="'+item["id"]+'">'+item["name"]+'</option>';
+                        var newRow = '<option value="' + item["id"] + '">' + item["name"] +
+                            '</option>';
 
                         $('#categoryId').append(newRow);
 
@@ -246,7 +257,8 @@
                 if (response.status === 200 && response.data.length > 0) {
                     // Iterate through the received data and append rows to the table
                     $.each(response.data, function (index, item) {
-                        var newRow = '<option value="'+item["id"]+'">'+item["name"]+'</option>';
+                        var newRow = '<option value="' + item["id"] + '">' + item["name"] +
+                            '</option>';
 
                         $('#subCategoryId').append(newRow);
                     });
@@ -259,26 +271,27 @@
             }
         });
     }
-    function getsubcategoryId(categoryId){
+
+    function getsubcategoryId(categoryId) {
         $.ajax({
-                url: '/api/subcategory/' + categoryId,
-                type: 'GET',
-                success: function (response) {
-                    if (response.status === 200) {
-                        var subcategories = response.data;
-                        var options = '';
-                        $.each(subcategories, function (key, value) {
-                            options += '<option value="' + value.id + '">' + value.name + '</option>';
-                        });
-                        $('#subCategoryId').html(options);
-                    } else {
-                        $('#subCategoryId').html('<option value="">No subcategories found</option>');
-                    }
-                },
-                error: function () {
-                    $('#subCategoryId').html('<option value="">Error fetching subcategories</option>');
+            url: '/api/subcategory/' + categoryId,
+            type: 'GET',
+            success: function (response) {
+                if (response.status === 200) {
+                    var subcategories = response.data;
+                    var options = '';
+                    $.each(subcategories, function (key, value) {
+                        options += '<option value="' + value.id + '">' + value.name + '</option>';
+                    });
+                    $('#subCategoryId').html(options);
+                } else {
+                    $('#subCategoryId').html('<option value="">No subcategories found</option>');
                 }
-            });
+            },
+            error: function () {
+                $('#subCategoryId').html('<option value="">Error fetching subcategories</option>');
+            }
+        });
     }
 
 </script>
