@@ -228,7 +228,7 @@
 
                     card.append('<div class="card-body">' +
                         '<span class="card-text"><h5>' + product.name + '</h5></span>' +
-                        '<p class="card-text" style="color: orange;">$' + product.sellingPrice.toFixed(
+                        '<p class="card-text" style="color: orange;">₱' + product.sellingPrice.toFixed(
                             2) + '</p>' +
                         '</div>');
 
@@ -270,7 +270,7 @@
             $('<td>').text(name),
             $('<td>').append($('<input>').attr({
                 type: 'number',
-                class: 'quantity-input',
+                class: 'quantity-input form-control bg-light border-0 small',
                 value: quantity,
                 min: 1
             }).on('change', function () {
@@ -284,7 +284,7 @@
 
                 localStorage.setItem('selectedProducts', JSON.stringify(selectedProducts));
             })),
-            $('<td>').text('$' + sellingPrice.toFixed(2)),
+            $('<td>').text('₱' + sellingPrice.toFixed(2)),
             $('<td>').append($(
                 '<a class="text-danger text-center" href="#"><i class="fa fa-trash fa-sm" aria-hidden="true"></i></a>'
                 ).on('click', function () {
@@ -326,8 +326,8 @@
                 subtotal += itemSubtotal;
             }
         }
-        $('#subtotalvalue').text('$' + subtotal.toFixed(2));
-        $('#totalValue').text('$' + subtotal.toFixed(2));
+        $('#subtotalvalue').text('₱' + subtotal.toFixed(2));
+        $('#totalValue').text('₱' + subtotal.toFixed(2));
     }
 
     function saveOrder() {

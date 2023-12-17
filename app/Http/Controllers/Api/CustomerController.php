@@ -146,4 +146,13 @@ class CustomerController extends Controller
             ], 404 );
         }
     }
+    public function numberCustomer() {
+        $count = Customer::count();
+    
+        return response()->json([
+            'status' => 200,
+            'data' => $count,
+        ], 200);
+    }
+    
 }

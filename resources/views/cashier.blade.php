@@ -110,11 +110,11 @@
                                     font-size: 15px;
                                 ">
                                         <th>Subtotal</th>
-                                        <td id="subtotalvalue" class="text-right">$0.00</td>
+                                        <td id="subtotalvalue" class="text-right">₱0.00</td>
                                     </tr>
                                     <tr>
                                         <th>Total</th>
-                                        <td id="totalValue" class="text-right">$0.00</td>
+                                        <td id="totalValue" class="text-right">₱0.00</td>
                                     </tr>
                                     <tr style="
                                     font-size: 15px;
@@ -123,7 +123,7 @@
                                         <td class="text-right">
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">$</span>
+                                                    <span class="input-group-text">₱</span>
                                                 </div>
                                                 <input id="amountTendered" type="text" class="form-control"
                                                     aria-label="Amount (to the nearest dollar)">
@@ -137,7 +137,7 @@
                                     font-size: 15px;
                                 ">
                                         <th>Change</th>
-                                        <td id="changeValue" class="text-right">$0.00</td>
+                                        <td id="changeValue" class="text-right">₱0.00</td>
                                     </tr>
 
                                 </tbody>

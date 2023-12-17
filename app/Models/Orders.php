@@ -15,6 +15,6 @@ class Orders extends Model
         'orderNumber',
         'userId',
         'customerId',
-        'transctionId'
+        'transactionId'
     ];
 }

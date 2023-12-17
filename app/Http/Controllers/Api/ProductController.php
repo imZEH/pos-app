@@ -148,4 +148,12 @@ class ProductController extends Controller
             ], 200 );
         }
     }
+    public function numberProduct() {
+        $count = Product::count();
+    
+        return response()->json([
+            'status' => 200,
+            'data' => $count,
+        ], 200);
+    }
 }

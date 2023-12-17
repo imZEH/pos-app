@@ -85,35 +85,27 @@
 
 <!-- Nav Item - Charts -->
 <li class="nav-item">
-    <a class="nav-link" href="charts.html">
+    <a class="nav-link" href="{{ url('/sales') }}">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Sales Report</span></a>
 </li>
 
 <!-- Nav Item - Tables -->
-<li class="nav-item">
-    <a class="nav-link" href="tables.html">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Sales Return</span></a>
-</li>
+
+
+<!-- Nav Item - Tables -->
+
 
 <!-- Nav Item - Tables -->
 <li class="nav-item">
-    <a class="nav-link" href="tables.html">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Product List Purchases</span></a>
-</li>
-
-<!-- Nav Item - Tables -->
-<li class="nav-item">
-    <a class="nav-link" href="tables.html">
+    <a class="nav-link" href="{{ url('/returns') }}">
         <i class="fas fa-fw fa-table"></i>
         <span>Product List Returns</span></a>
 </li>
 
 <!-- Nav Item - Tables -->
 <li class="nav-item">
-    <a class="nav-link" href="tables.html">
+    <a class="nav-link" href="{{ url('/cancel') }}">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Product List Cancelled</span></a>
 </li>

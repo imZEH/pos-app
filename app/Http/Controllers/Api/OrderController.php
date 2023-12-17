@@ -7,6 +7,8 @@ use App\Models\Product;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\OrdersDetails;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class OrderController extends Controller {
@@ -55,7 +57,7 @@ class OrderController extends Controller {
             'orderNumber' => $orderNumber,
             'userId' => 2,
             'customerId' => $customer->id, // Assuming you have customerId in the request
-            'transctionId' => 1, // Assuming you have transctionId in the request
+            'transactionId' => 1, // Assuming you have transctionId in the request
         ] );
 
         foreach ( $data[ 'products' ] as $productId => $productData ) {
@@ -95,5 +97,27 @@ class OrderController extends Controller {
         $product = Product::find( $productId );
         $product->stock = $product->stock - $qyt;
         $product->save();
+    }
+    public function getDailyEarnings(){
+        $currentDate = Carbon::now()->toDateString();
+
+        $totalSum = OrdersDetails::whereDate('created_at', $currentDate)
+            ->sum(DB::raw('price * qty'));
+
+        return response()->json([
+            'status' => 200,
+            'data' => $totalSum,
+        ], 200);
+    }
+    public function getAnnualEarnings(){
+        $year = date('Y'); // Replace this with the desired year
+
+        $totalSum = OrdersDetails::whereYear('created_at', $year)
+            ->sum(DB::raw('price * qty'));
+
+        return response()->json([
+            'status' => 200,
+            'data' => $totalSum,
+        ], 200);
     }
 }

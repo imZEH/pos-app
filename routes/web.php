@@ -25,12 +25,18 @@ Route::get('/login', function () {
     return view('login');
 });
 
-// Route::get('/register', function () {
-//     return view('register');
-// });
+Route::get('/sales', function () {
+    return view('sales');
+});
 
 Route::get('/users', function () {
     return view('users');
+});
+Route::get('/returns', function () {
+    return view('returns');
+});
+Route::get('/cancel', function () {
+    return view('cancel');
 });
 
 Route::get('/category', function () {

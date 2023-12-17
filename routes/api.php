@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UnitController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
@@ -46,6 +47,7 @@ Route::post('category', [CategoryController::class, 'save']);
 Route::put('category/{id}', [CategoryController::class, 'update']);
 
 Route::get('product', [ProductController::class, 'getProduct']);
+Route::get('getnumberofproduct', [ProductController::class, 'numberProduct']);
 Route::post('product', [ProductController::class, 'save']);
 Route::put('product/{id}', [ProductController::class, 'update']);
 Route::post('getproductbysearch', [ProductController::class, 'getProductBySearch']);
@@ -59,5 +61,13 @@ Route::get('customer', [CustomerController::class, 'getCustomer']);
 Route::post('customer', [CustomerController::class, 'save']);
 Route::put('customer/{id}', [CustomerController::class, 'update']);
 Route::post('getcustomerbysearch', [CustomerController::class, 'getCustomerBySearch']);
+Route::get('getnumberofcustomer', [CustomerController::class, 'numberCustomer']);
 
 Route::post('/orders', [OrderController::class, 'store']);
+Route::get('/dailyEarnings', [OrderController::class, 'getDailyEarnings']);
+Route::get('/annualEarnings', [OrderController::class, 'getAnnualEarnings']);
+
+Route::get('/getSales', [ReportController::class, 'getSales']);
+Route::get('/getReturns', [ReportController::class, 'getReturns']);
+Route::get('/getCancel', [ReportController::class, 'getCancel']);
+
