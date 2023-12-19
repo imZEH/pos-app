@@ -49,7 +49,7 @@
         });
 
         $('#amountTendered').on('input', function () {
-            var totalAmount = parseFloat($('#subtotalvalue').text().replace('$', ''));
+            var totalAmount = parseFloat($('#subtotalvalue').text().replace('₱', ''));
             var amountTendered = parseFloat($(this).val()) || 0;
             var change = amountTendered - totalAmount;
             $('#changeValue').text('$' + change.toFixed(2));
